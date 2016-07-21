@@ -95,8 +95,10 @@ public class JsonFormatter implements Reporter, Formatter {
 
     @Override
     public void feature(Feature feature) {
-        if (!featureMaps.isEmpty())
+        if (!featureMaps.isEmpty()) {
             done();
+            featureMaps.clear();
+        }
         featureMap = feature.toMap();
         featureMap.put("uri", uri);
         featureMaps.add(featureMap);
@@ -212,6 +214,7 @@ public class JsonFormatter implements Reporter, Formatter {
             } catch (Exception e) {
             }
         }
+
 
         // We're *not* closing the stream here.
         // https://github.com/cucumber/gherkin/issues/151
