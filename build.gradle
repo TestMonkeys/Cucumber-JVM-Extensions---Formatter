@@ -1,4 +1,4 @@
-group 'testmonkeys'
+group 'org.testmonkeys'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
