@@ -7,10 +7,15 @@ import gherkin.formatter.model.Step;
 
 import java.io.File;
 
-public class CucumberJsonFormatter extends JsonFormatter {
+/**
+ * Cucumber JSON Formatter that will output a report with same format as default json formatter from cucumber, but
+ * creating a json file per feature. This helps in situations where the output report is too big due to lots of
+ * screenshots.
+ */
+public class CucumberJsonPerFeatureFormatter extends JsonFormatter {
     private boolean inScenarioOutline = false;
 
-    public CucumberJsonFormatter(File out) {
+    public CucumberJsonPerFeatureFormatter(File out) {
         super(out);
     }
 
