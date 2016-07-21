@@ -88,6 +88,8 @@ public class JsonFormatter implements Reporter, Formatter {
 
     }
 
+
+
     @Override
     public void uri(String uri) {
         this.uri = uri;
