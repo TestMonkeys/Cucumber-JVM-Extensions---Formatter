@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
         features={"src/test/resources/"},
-plugin={"org.testmonkeys.cucumber.ext.formatters.CucumberJsonPerFeatureFormatter:target/"})
+plugin={"org.testmonkeys.cucumber.ext.formatters.json.PerFeatureFormatter:target/"})
 public class RunCuke {
 }

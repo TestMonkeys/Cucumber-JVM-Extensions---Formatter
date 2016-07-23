@@ -1,9 +1,10 @@
-package org.testmonkeys.cucumber.ext.formatters;
+package org.testmonkeys.cucumber.ext.formatters.json;
 
 import gherkin.formatter.model.Examples;
 import gherkin.formatter.model.Scenario;
 import gherkin.formatter.model.ScenarioOutline;
 import gherkin.formatter.model.Step;
+import org.testmonkeys.cucumber.ext.formatters.JsonFormatter;
 
 import java.io.File;
 
@@ -12,10 +13,10 @@ import java.io.File;
  * creating a json file per feature. This helps in situations where the output report is too big due to lots of
  * screenshots.
  */
-public class CucumberJsonPerFeatureFormatter extends JsonFormatter {
+public class PerFeatureFormatter extends JsonFormatter {
     private boolean inScenarioOutline = false;
 
-    public CucumberJsonPerFeatureFormatter(File out) {
+    public PerFeatureFormatter(File out) {
         super(out);
     }
 
