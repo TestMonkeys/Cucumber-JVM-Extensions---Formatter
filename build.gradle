@@ -4,10 +4,19 @@ version '0.1.4'
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
     }
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
     apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+}
+
+subprojects{
+    dependencies{
+        testCompile 'junit:junit:4.12'
+    }
 }
 
 ext {
@@ -42,8 +51,9 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
     }
 }
+
 apply plugin: 'com.jfrog.bintray'
-sourceCompatibility = 1.8
+//sourceCompatibility = 1.8
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
@@ -104,45 +114,33 @@ publishing {
 }
 
 // Bintray
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//
+//bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.apikey")
+//    publications =['MavenPub']
+//    configurations = ['archives']
+//    pkg {
+//        repo = bintrayRepo
+//        userOrg = 'testmonkeys'
+//        name = bintrayName
+//        desc = libraryDescription
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+//        licenses = allLicenses
+//        publish = false
+//        publicDownloadNumbers = true
+//        version {
+//            desc = libraryDescription
+//            gpg {
+//                sign = true //Determines whether to GPG sign the files. The default is false
+//                passphrase = properties.getProperty("bintray.gpg.password")
+//                //Optional. The passphrase for GPG signing'
+//            }
+//        }
+//    }
+//}
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    publications =['MavenPub']
-    configurations = ['archives']
-    pkg {
-        repo = bintrayRepo
-        userOrg = 'testmonkeys'
-        name = bintrayName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        publish = false
-        publicDownloadNumbers = true
-        version {
-            desc = libraryDescription
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password")
-                //Optional. The passphrase for GPG signing'
-            }
-        }
-    }
-}
-
-
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile 'info.cukes:gherkin:2.12.2','info.cukes:gherkin-jvm-deps:1.0.3'
-    testCompile 'junit:junit:4.11',
-            'info.cukes:cucumber-java:1.2.4',
-            'info.cukes:cucumber-junit:1.2.4'
-}
 
