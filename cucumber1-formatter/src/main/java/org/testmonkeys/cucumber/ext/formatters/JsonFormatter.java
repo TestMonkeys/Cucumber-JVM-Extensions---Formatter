@@ -3,23 +3,13 @@ package org.testmonkeys.cucumber.ext.formatters;
 import gherkin.deps.com.google.gson.Gson;
 import gherkin.deps.com.google.gson.GsonBuilder;
 import gherkin.deps.net.iharder.Base64;
-import gherkin.formatter.model.Background;
-import gherkin.formatter.model.Examples;
-import gherkin.formatter.model.Feature;
-import gherkin.formatter.model.Match;
-import gherkin.formatter.model.Result;
-import gherkin.formatter.model.Scenario;
-import gherkin.formatter.model.ScenarioOutline;
-import gherkin.formatter.model.Step;
 import gherkin.formatter.Formatter;
 import gherkin.formatter.Reporter;
-import gherkin.formatter.NiceAppendable;
+import gherkin.formatter.model.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +60,7 @@ public class JsonFormatter implements Reporter, Formatter {
      * @return the correct step for the current operation based on past method calls to the formatter interface
      */
     private Map getCurrentStep(Phase phase) {
-        String target = phase.ordinal() <= Phase.match.ordinal()?Phase.match.name():Phase.result.name();
+        String target = phase.ordinal() <= Phase.match.ordinal()? Phase.match.name(): Phase.result.name();
         Map lastWithValue = null;
         for (Map stepOrHook : getSteps()) {
             if (stepOrHook.get(target) == null) {

@@ -1,0 +1,10 @@
+group 'org.testmonkeys'
+version '0.1.4'
+
+dependencies {
+
+    compile 'io.cucumber:cucumber-core:3.0.2'
+
+    testCompile 'io.cucumber:cucumber-java:3.0.2',
+            'io.cucumber:cucumber-junit:3.0.2'
+}
