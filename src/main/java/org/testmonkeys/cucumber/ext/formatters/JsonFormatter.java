@@ -3,37 +3,26 @@ package org.testmonkeys.cucumber.ext.formatters;
 import gherkin.deps.com.google.gson.Gson;
 import gherkin.deps.com.google.gson.GsonBuilder;
 import gherkin.deps.net.iharder.Base64;
-import gherkin.formatter.model.Background;
-import gherkin.formatter.model.Examples;
-import gherkin.formatter.model.Feature;
-import gherkin.formatter.model.Match;
-import gherkin.formatter.model.Result;
-import gherkin.formatter.model.Scenario;
-import gherkin.formatter.model.ScenarioOutline;
-import gherkin.formatter.model.Step;
 import gherkin.formatter.Formatter;
 import gherkin.formatter.Reporter;
-import gherkin.formatter.NiceAppendable;
+import gherkin.formatter.model.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class JsonFormatter implements Reporter, Formatter {
-    private final List<Map<String, Object>> featureMaps = new ArrayList<Map<String, Object>>();
+    private final List<Map<String, Object>> featureMaps = new ArrayList<>();
     private final File outFolder;
-    private File outPutFile;
     private int scenarioCount;
 
     private Map<String, Object> featureMap;
     private String uri;
-    private List<Map> beforeHooks = new ArrayList<Map>();
+    private List<Map> beforeHooks = new ArrayList<>();
 
     private enum Phase {step, match, embedding, output, result}
 
@@ -116,7 +105,7 @@ public class JsonFormatter implements Reporter, Formatter {
         getFeatureElements().add(scenario.toMap());
         if (beforeHooks.size() > 0) {
             getFeatureElement().put("before", beforeHooks);
-            beforeHooks = new ArrayList<Map>();
+            beforeHooks = new ArrayList<>();
         }
     }
 
@@ -142,7 +131,7 @@ public class JsonFormatter implements Reporter, Formatter {
 
     @Override
     public void embedding(String mimeType, byte[] data) {
-        final Map<String, String> embedding = new HashMap<String, String>();
+        final Map<String, String> embedding = new HashMap<>();
         embedding.put("mime_type", mimeType);
         embedding.put("data", Base64.encodeBytes(data));
         getEmbeddings().add(embedding);
@@ -167,7 +156,7 @@ public class JsonFormatter implements Reporter, Formatter {
     public void after(Match match, Result result) {
         List<Map> hooks = getFeatureElement().get("after");
         if (hooks == null) {
-            hooks = new ArrayList<Map>();
+            hooks = new ArrayList<>();
             getFeatureElement().put("after", hooks);
         }
         hooks.add(buildHookMap(match,result));
@@ -246,7 +235,7 @@ public class JsonFormatter implements Reporter, Formatter {
     private List<Map<String, Object>> getFeatureElements() {
         List<Map<String, Object>> featureElements = (List) featureMap.get("elements");
         if (featureElements == null) {
-            featureElements = new ArrayList<Map<String, Object>>();
+            featureElements = new ArrayList<>();
             featureMap.put("elements", featureElements);
         }
         return featureElements;
@@ -263,7 +252,7 @@ public class JsonFormatter implements Reporter, Formatter {
     private List<Map> getAllExamples() {
         List<Map> allExamples = getFeatureElement().get("examples");
         if (allExamples == null) {
-            allExamples = new ArrayList<Map>();
+            allExamples = new ArrayList<>();
             getFeatureElement().put("examples", allExamples);
         }
         return allExamples;
@@ -272,7 +261,7 @@ public class JsonFormatter implements Reporter, Formatter {
     private List<Map> getSteps() {
         List<Map> steps = getFeatureElement().get("steps");
         if (steps == null) {
-            steps = new ArrayList<Map>();
+            steps = new ArrayList<>();
             getFeatureElement().put("steps", steps);
         }
         return steps;
@@ -281,7 +270,7 @@ public class JsonFormatter implements Reporter, Formatter {
     private List<Map<String, String>> getEmbeddings() {
         List<Map<String, String>> embeddings = (List<Map<String, String>>) getCurrentStep(Phase.embedding).get("embeddings");
         if (embeddings == null) {
-            embeddings = new ArrayList<Map<String, String>>();
+            embeddings = new ArrayList<>();
             getCurrentStep(Phase.embedding).put("embeddings", embeddings);
         }
         return embeddings;
@@ -290,7 +279,7 @@ public class JsonFormatter implements Reporter, Formatter {
     private List<String> getOutput() {
         List<String> output = (List<String>) getCurrentStep(Phase.output).get("output");
         if (output == null) {
-            output = new ArrayList<String>();
+            output = new ArrayList<>();
             getCurrentStep(Phase.output).put("output", output);
         }
         return output;
