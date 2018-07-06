@@ -19,4 +19,13 @@ public class StepHooks {
 
     }
 
+    @When("^action (.*)$")
+    public void action(String action){
+
+    }
+
+    @Then("^result (.*)$")
+    public void result(String result){
+
+    }
 }
